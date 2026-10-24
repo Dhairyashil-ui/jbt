@@ -135,8 +135,8 @@
     /* Luxury Header */
     .main-header {
       display: flex; justify-content: space-between; align-items: center;
-      width: 100%; z-index: 20;
-      pointer-events: auto;
+      width: 100%; z-index: 100;
+      pointer-events: auto !important;
       padding: 20px 0;
     }
     .brand-wrap {
@@ -434,8 +434,12 @@
       font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
       border-radius: 20px; text-decoration: none;
       display: inline-flex; align-items: center; gap: 8px;
+      position: relative; z-index: 70;
+      pointer-events: auto !important;
+      cursor: pointer !important;
       transition: transform 0.25s, box-shadow 0.25s;
     }
+    .btn-gold * { pointer-events: none; }
     .btn-gold:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 25px rgba(229, 169, 60, 0.45);
@@ -446,6 +450,9 @@
       border: 1px solid rgba(255, 255, 255, 0.25);
       font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
       border-radius: 20px; text-decoration: none;
+      position: relative; z-index: 70;
+      pointer-events: auto !important;
+      cursor: pointer !important;
       transition: border-color 0.25s, color 0.25s;
     }
     .btn-outline:hover {
@@ -462,7 +469,11 @@
     .about-cards-grid {
       display: grid; grid-template-columns: repeat(4, 1fr);
       gap: 20px;
-      pointer-events: auto;
+      position: relative;
+      z-index: 60;
+    }
+    .slide.active .about-cards-grid {
+      pointer-events: auto !important;
     }
     .about-metric-card {
       background: rgba(16, 18, 26, 0.72);
@@ -500,7 +511,11 @@
     .dealer-grid {
       display: grid; grid-template-columns: 1fr 1.2fr;
       gap: 32px;
-      pointer-events: auto;
+      position: relative;
+      z-index: 60;
+    }
+    .slide.active .dealer-grid {
+      pointer-events: auto !important;
     }
     .dealer-info-card, .dealer-form-card {
       background: rgba(14, 16, 24, 0.82);
@@ -509,6 +524,12 @@
       border-radius: 16px;
       padding: 30px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
+      position: relative;
+      z-index: 70;
+    }
+    .slide.active .dealer-info-card,
+    .slide.active .dealer-form-card {
+      pointer-events: auto !important;
     }
     .dealer-headline {
       font-family: 'Italiana', serif;
