@@ -1503,6 +1503,48 @@
       });
     }
 
+    function setupProductTabs() {
+      const tabs = document.querySelectorAll('.product-tab');
+      tabs.forEach((tab) => {
+        tab.style.cursor = 'pointer';
+        tab.setAttribute('role', 'button');
+        tab.setAttribute('tabindex', '0');
+
+        const onTabClick = function(e) {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          const prodId = tab.getAttribute('data-prod');
+          if (prodId && window.selectProduct) {
+            window.selectProduct(prodId);
+          }
+        };
+
+        tab.addEventListener('click', onTabClick);
+        tab.addEventListener('pointerup', onTabClick);
+        tab.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            onTabClick(e);
+          }
+        });
+      });
+
+      const spinBtn = document.querySelector('.btn-outline');
+      if (spinBtn) {
+        spinBtn.style.cursor = 'pointer';
+        const onSpinClick = function(e) {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          if (window.triggerCanSpin) window.triggerCanSpin();
+        };
+        spinBtn.addEventListener('click', onSpinClick);
+        spinBtn.addEventListener('pointerup', onSpinClick);
+      }
+    }
+
     function animate() {
       requestAnimationFrame(animate);
       const deltaTime = clock.getDelta();
@@ -1674,6 +1716,7 @@
       onWindowResize();
       animate();
       setupNavigation();
+      setupProductTabs();
     }
 
     if (document.readyState === 'loading') {

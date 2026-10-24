@@ -65,11 +65,23 @@ shield_js = """
     }
   }, true);
 
-  // Disable Text Selection, Drag & Copy
-  document.addEventListener('selectstart', function(e){ e.preventDefault(); return false; }, true);
-  document.addEventListener('dragstart', function(e){ e.preventDefault(); return false; }, true);
-  document.addEventListener('copy', function(e){ e.preventDefault(); return false; }, true);
-  document.addEventListener('cut', function(e){ e.preventDefault(); return false; }, true);
+  // Disable Text Selection, Drag & Copy (except on form inputs)
+  document.addEventListener('selectstart', function(e){
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT')) return true;
+    e.preventDefault(); return false;
+  }, true);
+  document.addEventListener('dragstart', function(e){
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return true;
+    e.preventDefault(); return false;
+  }, true);
+  document.addEventListener('copy', function(e){
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return true;
+    e.preventDefault(); return false;
+  }, true);
+  document.addEventListener('cut', function(e){
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return true;
+    e.preventDefault(); return false;
+  }, true);
 
   // Silence Console Output
   var _n = function(){};
