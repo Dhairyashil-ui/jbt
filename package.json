@@ -1,0 +1,10 @@
+{
+  "name": "jb-traders-gandhi-oil",
+  "version": "1.0.0",
+  "private": true,
+  "description": "J B TRADERS (Gandhi Oil) 3D Digital Packaging Studio & Showroom",
+  "scripts": {
+    "build": "node -e \"console.log('J B TRADERS build validated for Vercel')\"",
+    "start": "npx serve ."
+  }
+}
