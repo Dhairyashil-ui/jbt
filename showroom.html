@@ -733,7 +733,7 @@
       <div class="product-panel">
         <!-- Category Tabs List -->
         <div class="product-tabs-list">
-          <div class="prod-tab-btn" data-prod="2wheeler">
+          <div class="prod-tab-btn" data-prod="2wheeler" onclick="selectProduct('2wheeler')">
             <div>
               <div class="tab-btn-title">2-Wheeler 4T</div>
               <div class="tab-btn-sub">Bikes &amp; Scooters</div>
@@ -741,7 +741,7 @@
             <span class="tab-btn-pill">1L</span>
           </div>
 
-          <div class="prod-tab-btn" data-prod="3wheeler">
+          <div class="prod-tab-btn" data-prod="3wheeler" onclick="selectProduct('3wheeler')">
             <div>
               <div class="tab-btn-title">3-Wheeler Auto</div>
               <div class="tab-btn-sub">CNG &amp; Diesel Auto</div>
@@ -749,7 +749,7 @@
             <span class="tab-btn-pill">3L</span>
           </div>
 
-          <div class="prod-tab-btn" data-prod="4wheeler">
+          <div class="prod-tab-btn" data-prod="4wheeler" onclick="selectProduct('4wheeler')">
             <div>
               <div class="tab-btn-title">4-Wheeler Car</div>
               <div class="tab-btn-sub">Full Synthetic</div>
@@ -757,7 +757,7 @@
             <span class="tab-btn-pill">3.5L</span>
           </div>
 
-          <div class="prod-tab-btn active" data-prod="jcb">
+          <div class="prod-tab-btn active" data-prod="jcb" onclick="selectProduct('jcb')">
             <div>
               <div class="tab-btn-title">JCB &amp; Earthmoving</div>
               <div class="tab-btn-sub">Heavy Fleet CI-4</div>
@@ -765,7 +765,7 @@
             <span class="tab-btn-pill">5L</span>
           </div>
 
-          <div class="prod-tab-btn" data-prod="tractor">
+          <div class="prod-tab-btn" data-prod="tractor" onclick="selectProduct('tractor')">
             <div>
               <div class="tab-btn-title">Tractor UTTO</div>
               <div class="tab-btn-sub">Wet Brake &amp; Lifts</div>
@@ -773,7 +773,7 @@
             <span class="tab-btn-pill">5L</span>
           </div>
 
-          <div class="prod-tab-btn" data-prod="industrial">
+          <div class="prod-tab-btn" data-prod="industrial" onclick="selectProduct('industrial')">
             <div>
               <div class="tab-btn-title">Industrial Fluids</div>
               <div class="tab-btn-sub">HYD 68 &amp; Greases</div>
@@ -1085,6 +1085,8 @@
       }
     }
 
+    let baseScale = 1.0;
+
     function setupModel(gltf) {
       gltfModel = gltf.scene;
       modelPivot.add(gltfModel);
@@ -1093,23 +1095,27 @@
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
-          const nameLower = child.name.toLowerCase();
-          if (nameLower.includes('can') || nameLower.includes('body') || nameLower.includes('mesh')) {
+          if (child.name === 'JB_Traders_Can_Body' || (child.material && child.material.name === 'JB_Traders_Molded_HDPE')) {
             canBodyMesh = child;
           }
           if (child.material) {
             child.material.roughness = 0.28;
             child.material.metalness = 0.04;
+            if (child.material.map) {
+              child.material.map.anisotropy = 16;
+              child.material.map.flipY = false;
+            }
           }
         }
       });
 
-      // Fit model to view
+      // Fit model to view with optimal scale
       const box = new THREE.Box3().setFromObject(gltfModel);
       const size = box.getSize(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 2.45 / (maxDim || 1);
-      gltfModel.scale.setScalar(scale);
+      baseScale = 2.65 / (maxDim || 1);
+      gltfModel.scale.setScalar(baseScale);
+      targetScale.set(baseScale, baseScale, baseScale);
       gltfModel.updateMatrixWorld(true);
 
       const boxScaled = new THREE.Box3().setFromObject(gltfModel);
@@ -1118,12 +1124,17 @@
       modelPivot.position.y = -0.1;
       modelPivot.rotation.y = 0.35;
 
-      // Preload textures
+      // Preload textures with flipY = false
       Object.keys(productCatalog).forEach(id => {
         const texSrc = (window.JB_PRODUCT_TEXTURES && window.JB_PRODUCT_TEXTURES[id])
           ? window.JB_PRODUCT_TEXTURES[id]
           : productCatalog[id].label;
-        loadedTextures[id] = textureLoader.load(texSrc);
+        const tex = textureLoader.load(texSrc, (t) => {
+          t.flipY = false;
+          t.needsUpdate = true;
+        });
+        tex.flipY = false;
+        loadedTextures[id] = tex;
       });
 
       showToast("J B TRADERS 3D Can Loaded");
@@ -1183,14 +1194,19 @@
     function setupTabs() {
       const tabs = document.querySelectorAll('.prod-tab-btn');
       tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
+        const onTabClick = function(e) {
+          if (e) e.preventDefault();
           const prodId = tab.getAttribute('data-prod');
-          selectProduct(prodId);
-        });
+          if (prodId && window.selectProduct) {
+            window.selectProduct(prodId);
+          }
+        };
+        tab.addEventListener('click', onTabClick);
+        tab.addEventListener('pointerup', onTabClick);
       });
     }
 
-    function selectProduct(prodId) {
+    window.selectProduct = function(prodId) {
       if (!productCatalog[prodId]) return;
       const data = productCatalog[prodId];
 
@@ -1199,34 +1215,48 @@
         t.classList.toggle('active', t.getAttribute('data-prod') === prodId);
       });
 
-      // Update HUD
-      document.getElementById('hud-name').textContent = data.name;
-      document.getElementById('hud-grade').textContent = data.grade;
-      document.getElementById('hud-desc').textContent = data.desc;
-      document.getElementById('hud-visc').textContent = data.visc;
-      document.getElementById('hud-pack').textContent = data.pack;
-      document.getElementById('hud-adv').textContent = data.adv;
+      // Update HUD safely
+      const elName = document.getElementById('hud-name');
+      if (elName) elName.textContent = data.name;
+      const elGrade = document.getElementById('hud-grade');
+      if (elGrade) elGrade.textContent = data.grade;
+      const elDesc = document.getElementById('hud-desc');
+      if (elDesc) elDesc.textContent = data.desc;
+      const elVisc = document.getElementById('hud-visc');
+      if (elVisc) elVisc.textContent = data.visc;
+      const elPack = document.getElementById('hud-pack');
+      if (elPack) elPack.textContent = data.pack;
+      const elAdv = document.getElementById('hud-adv');
+      if (elAdv) elAdv.textContent = data.adv;
 
       const waMsg = encodeURIComponent(`Hello J B Traders, I am interested in dealer pricing for ${data.name} (${data.grade}).`);
-      document.getElementById('hud-wa-link').href = `https://wa.me/919604313912?text=${waMsg}`;
+      const waLink = document.getElementById('hud-wa-link');
+      if (waLink) waLink.href = `https://wa.me/919604313912?text=${waMsg}`;
 
-      // Update Scale Vector
-      targetScale.set(data.scale.x, data.scale.y, data.scale.z);
+      // Update Scale Vector dynamically based on product package size
+      targetScale.set(baseScale * data.scale.x, baseScale * data.scale.y, baseScale * data.scale.z);
 
-      // Update 3D Texture
+      // Update 3D Texture dynamically
       if (canBodyMesh && canBodyMesh.material) {
         if (!loadedTextures[prodId]) {
           const texSrc = (window.JB_PRODUCT_TEXTURES && window.JB_PRODUCT_TEXTURES[prodId])
             ? window.JB_PRODUCT_TEXTURES[prodId]
             : data.label;
-          loadedTextures[prodId] = textureLoader.load(texSrc);
+          const tex = textureLoader.load(texSrc, (t) => {
+            t.flipY = false;
+            t.needsUpdate = true;
+          });
+          tex.flipY = false;
+          loadedTextures[prodId] = tex;
         }
-        canBodyMesh.material.map = loadedTextures[prodId];
+        const activeTex = loadedTextures[prodId];
+        activeTex.flipY = false;
+        canBodyMesh.material.map = activeTex;
         canBodyMesh.material.needsUpdate = true;
       }
 
       showToast(`Loaded ${data.name} 3D Package`);
-    }
+    };
 
     function onResize() {
       camera.aspect = container.clientWidth / container.clientHeight;

@@ -1285,8 +1285,7 @@
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
-          const nameLower = child.name.toLowerCase();
-          if (nameLower.includes('can') || nameLower.includes('body') || nameLower.includes('mesh')) {
+          if (child.name === 'JB_Traders_Can_Body' || (child.material && child.material.name === 'JB_Traders_Molded_HDPE')) {
             canBodyMesh = child;
           }
           if (child.material) {
@@ -1294,6 +1293,7 @@
             child.material.metalness = 0.04;
             if (child.material.map) {
               child.material.map.anisotropy = 16;
+              child.material.map.flipY = false;
             }
           }
         }
@@ -1314,12 +1314,17 @@
 
       showToast("J B TRADERS 3D Can Loaded");
 
-      // Preload product textures using Data URIs or file fallbacks
+      // Preload product textures using Data URIs or file fallbacks with flipY = false
       Object.keys(productCatalog).forEach(id => {
         const texSrc = (window.JB_PRODUCT_TEXTURES && window.JB_PRODUCT_TEXTURES[id])
           ? window.JB_PRODUCT_TEXTURES[id]
           : productCatalog[id].label;
-        loadedTextures[id] = textureLoader.load(texSrc);
+        const tex = textureLoader.load(texSrc, (t) => {
+          t.flipY = false;
+          t.needsUpdate = true;
+        });
+        tex.flipY = false;
+        loadedTextures[id] = tex;
       });
     }
 
@@ -1378,13 +1383,19 @@
         tab.classList.toggle('active', tab.getAttribute('data-prod') === prodId);
       });
 
-      // Update HUD
-      document.getElementById('hud-name').textContent = data.name;
-      document.getElementById('hud-grade').textContent = data.grade;
-      document.getElementById('hud-desc').textContent = data.desc;
-      document.getElementById('hud-visc').textContent = data.visc;
-      document.getElementById('hud-pack').textContent = data.pack;
-      document.getElementById('hud-adv').textContent = data.adv;
+      // Update HUD safely without null crashes
+      const elName = document.getElementById('hud-name');
+      if (elName) elName.textContent = data.name;
+      const elGrade = document.getElementById('hud-grade');
+      if (elGrade) elGrade.textContent = data.grade;
+      const elDesc = document.getElementById('hud-desc');
+      if (elDesc) elDesc.textContent = data.desc;
+      const elVisc = document.getElementById('hud-visc');
+      if (elVisc) elVisc.textContent = data.visc;
+      const elPack = document.getElementById('hud-pack');
+      if (elPack) elPack.textContent = data.pack;
+      const elAdv = document.getElementById('hud-adv');
+      if (elAdv) elAdv.textContent = data.adv;
 
       // Update 3D Can Scale dynamically (1L, 3L, 3.5L, 5L)
       targetScaleVec.set(data.scale.x, data.scale.y, data.scale.z);
@@ -1395,9 +1406,16 @@
           const texSrc = (window.JB_PRODUCT_TEXTURES && window.JB_PRODUCT_TEXTURES[prodId])
             ? window.JB_PRODUCT_TEXTURES[prodId]
             : data.label;
-          loadedTextures[prodId] = textureLoader.load(texSrc);
+          const tex = textureLoader.load(texSrc, (t) => {
+            t.flipY = false;
+            t.needsUpdate = true;
+          });
+          tex.flipY = false;
+          loadedTextures[prodId] = tex;
         }
-        canBodyMesh.material.map = loadedTextures[prodId];
+        const activeTex = loadedTextures[prodId];
+        activeTex.flipY = false;
+        canBodyMesh.material.map = activeTex;
         canBodyMesh.material.needsUpdate = true;
       }
 

@@ -249,8 +249,10 @@ for p in products:
     draw.line([(pad_x + 60, reg_y), (W - pad_x - 60, reg_y)], fill=(80, 90, 110, 255), width=2)
     draw.text((pad_x + 120, reg_y + 24), "ISO 9001 / API CERTIFIED FORMULATION · RECYCLE HDPE (2)", font=font_small, fill=(150, 160, 180, 255))
 
+    # Save label directly in natural orientation (unrotated, unmirrored)
+    # Three.js Texture flipY = false will render this 100% upright and unmirrored on the 3D can
     out_file = ASSETS_DIR / p["filename"]
     img.save(str(out_file), "PNG", quality=100)
-    print(f"[+] Generated product label: {out_file.name}")
+    print(f"[+] Generated normal upright & unmirrored product label: {out_file.name}")
 
 print("[*] All product labels successfully created.")
