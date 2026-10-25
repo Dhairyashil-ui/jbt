@@ -140,7 +140,18 @@
       padding: 20px 0;
     }
     .brand-wrap {
-      display: flex; align-items: center; gap: 12px;
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none;
+    }
+    .brand-logo-img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.75));
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .brand-wrap:hover .brand-logo-img {
+      transform: scale(1.06);
     }
     .brand-monogram {
       width: 32px; height: 32px;
@@ -156,27 +167,46 @@
       display: flex; flex-direction: column;
     }
     .brand-name {
-      font-size: 13px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+      font-size: 13px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase;
       color: #ffffff;
     }
     .brand-sub {
-      font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+      font-size: 9px; font-weight: 500; letter-spacing: 1.8px; text-transform: uppercase;
       color: #e5a93c;
     }
-    .header-nav { display: flex; align-items: center; gap: 22px; }
+    .header-nav { display: flex; align-items: center; gap: 20px; }
     .nav-link {
       color: #ffffff; text-decoration: none;
       font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
-      font-weight: 500; opacity: 0.75;
-      transition: opacity 0.3s, color 0.3s;
+      font-weight: 600; opacity: 0.78;
+      padding: 6px 10px;
+      border-radius: 20px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .nav-link:hover, .nav-link.active-nav { opacity: 1; color: #e5a93c; }
+    .nav-link:hover, .nav-link.active-nav {
+      opacity: 1; color: #ffd875;
+      background: rgba(229, 169, 60, 0.14);
+      text-shadow: 0 0 10px rgba(229, 169, 60, 0.5);
+    }
     .nav-dot { width: 3px; height: 3px; background: rgba(255, 255, 255, 0.25); border-radius: 50%; }
 
-    .header-actions { display: flex; align-items: center; gap: 14px; }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .whatsapp-header-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.45);
+      color: #25d366; text-decoration: none;
+      transition: all 0.25s;
+    }
+    .whatsapp-header-btn:hover {
+      background: #25d366; color: #121212;
+      box-shadow: 0 0 16px rgba(37, 211, 102, 0.6);
+      transform: scale(1.08);
+    }
     .contact-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 9px 22px;
+      padding: 9px 20px;
       background: #ffffff; color: #000000;
       text-decoration: none;
       font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;
@@ -194,394 +224,432 @@
       color: #111;
       box-shadow: 0 0 20px rgba(229, 169, 60, 0.6);
     }
+    .slide-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 9px 20px;
+      background: rgba(229, 169, 60, 0.16);
+      border: 1px solid rgba(229, 169, 60, 0.48);
+      border-radius: 9999px;
+      color: #ffd875;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      pointer-events: auto !important;
+    }
+    .slide-link-btn:hover {
+      background: linear-gradient(135deg, #f7ce76, #cf8b22);
+      color: #0b0c10;
+      border-color: #f7ce76;
+      box-shadow: 0 0 20px rgba(229, 169, 60, 0.65);
+      transform: translateY(-2px);
+    }
 
-    /* Slides Shared Styling */
+    /* Slides Shared Styling - Left Docked to Showcase 3D Can on Right */
     .slide {
-      position: absolute; bottom: 12%;
+      position: absolute;
+      bottom: 8%;
+      left: 60px;
+      max-width: 530px;
+      width: calc(100% - 120px);
       pointer-events: none !important;
       opacity: 0;
       visibility: hidden;
       z-index: 1;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
+      transition: opacity 0.45s ease, visibility 0.45s ease, transform 0.45s ease;
+      transform: translateY(16px);
     }
     .slide.active {
       opacity: 1;
       visibility: visible !important;
       pointer-events: auto !important;
       z-index: 50;
+      transform: translateY(0);
     }
     .slide:not(.active) * {
       pointer-events: none !important;
     }
 
+    /* Frosted Obsidian Glass Container Card */
+    .slide-card {
+      background: rgba(8, 10, 16, 0.88);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(229, 169, 60, 0.38);
+      border-radius: 24px;
+      padding: 34px 38px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.92), 0 0 35px rgba(229, 169, 60, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      pointer-events: auto !important;
+    }
+
     .slide-tag {
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-family: 'Space Grotesk', monospace;
-      font-size: 10px; font-weight: 700; letter-spacing: 3px;
-      color: #e5a93c; text-transform: uppercase;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #ffd875;
+      text-transform: uppercase;
+      background: rgba(229, 169, 60, 0.16);
+      border: 1px solid rgba(229, 169, 60, 0.45);
+      padding: 5px 14px;
+      border-radius: 9999px;
       margin-bottom: 14px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     }
     .slide-tag::before {
-      content: ''; display: inline-block; width: 14px; height: 1px; background: #e5a93c;
+      content: '';
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: #25d366;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #25d366;
     }
 
     .slide-title {
-      font-family: 'Italiana', serif;
-      font-size: 112px;
-      line-height: 0.98;
+      font-family: 'Outfit', sans-serif;
+      font-size: 52px;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ffffff 15%, #ffd875 55%, #e5a93c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.9));
+    }
+
+    .slide-lead {
+      font-size: 14.5px;
+      line-height: 1.65;
       font-weight: 400;
-      letter-spacing: 2px;
-      margin-bottom: 22px;
-      color: #fff8f0;
-      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+      color: #f1f5f9;
+      letter-spacing: 0.3px;
+      margin-bottom: 16px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
     }
 
-    .slide-desc {
-      font-size: 15px; line-height: 1.75; font-weight: 300;
-      color: #d1d5db; letter-spacing: 0.4px;
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
-                  transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-      transition-delay: 0.35s;
+    .slide-specs-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
     }
-    .slide.active .slide-desc { opacity: 1; transform: translateY(0); }
-
-    .slide-title .char {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(48px);
-      filter: blur(12px);
-      transition: opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1),
-                  transform 0.75s cubic-bezier(0.25, 1, 0.5, 1),
-                  filter 0.75s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-    .slide.active .slide-title .char { opacity: 1; transform: translateY(0); filter: blur(0); }
-
-    /* Slide 1 */
-    #slide-1 { left: 0; width: 100%; }
-    #slide-1 .slide-title { margin-left: 60px; }
-    #slide-1 .slide-tag { margin-left: 60px; }
-    #slide-1 .desc-row { position: relative; display: flex; width: 100%; }
-    #slide-1 .col-1 {
-      margin-left: 60px;
-      width: calc(25vw - 60px);
-      max-width: calc(25vw - 60px);
-    }
-    #slide-1 .col-2 {
-      position: absolute;
-      left: calc(25vw + 40px);
-      width: calc(25vw - 60px);
-      max-width: calc(25vw - 60px);
-    }
-
-    /* Slide 2 Image Mask */
-    #slide-2-img {
-      position: fixed;
-      top: 90px;
-      left: 60px;
-      width: calc(25vw - 60px);
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      z-index: 2;
-      pointer-events: none;
-      clip-path: inset(0 0 100% 0);
-      transition: clip-path 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-      opacity: 0;
-      border: 1px solid rgba(229, 169, 60, 0.3);
-      border-radius: 4px;
-    }
-    #slide-2-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transform: scale(1.18);
-      transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #slide-2-img.active { clip-path: inset(0 0 0 0); opacity: 1; }
-    #slide-2-img.active img { transform: scale(1); }
-
-    /* Slide 2 */
-    #slide-2 { left: 0; width: 100%; }
-    #slide-2 .slide-tag { margin-left: calc(25vw + 40px); }
-    #slide-2 .slide-title { margin-left: calc(25vw + 40px); }
-    #slide-2 .slide-desc {
-      margin-left: calc(50vw + 20px);
-      width: calc(25vw - 60px);
-      max-width: calc(25vw - 60px);
-    }
-
-    /* Slide 3: Products Showroom Interactive Overlay */
-    #slide-3 {
-      left: 60px;
-      width: calc(100% - 120px);
-      bottom: 6%;
-    }
-    #slide-3 .slide-header-wrap {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 24px;
-    }
-    #slide-3 .slide-title { font-size: 78px; margin-bottom: 8px; }
-
-    /* Product Selector Tabs (Our Design + Laocoön Mix) */
-    .product-showroom-panel {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 32px;
-      background: rgba(14, 16, 22, 0.78);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(229, 169, 60, 0.25);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
-      position: relative;
-      z-index: 60;
-      pointer-events: auto !important;
-    }
-    .product-list {
-      display: flex; flex-direction: column; gap: 8px;
-      position: relative;
-      z-index: 65;
-    }
-    .product-tab {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      cursor: pointer !important;
-      position: relative;
-      z-index: 70;
-      pointer-events: auto !important;
-      transition: all 0.25s ease;
-      user-select: none;
-    }
-    .product-tab * {
-      pointer-events: none;
-    }
-    .product-tab:hover {
-      background: rgba(229, 169, 60, 0.14);
-      border-color: rgba(229, 169, 60, 0.45);
-      transform: translateX(4px);
-      box-shadow: 0 4px 15px rgba(229, 169, 60, 0.15);
-    }
-    .product-tab:active {
-      transform: scale(0.98) translateX(2px);
-    }
-    .product-tab.active {
-      background: rgba(229, 169, 60, 0.20);
-      border-color: #e5a93c;
-      box-shadow: 0 0 20px rgba(229, 169, 60, 0.25);
-    }
-    .prod-info-title {
-      font-size: 13px; font-weight: 700; color: #ffffff;
-      margin-bottom: 2px;
-    }
-    .prod-info-sub {
-      font-size: 10px; color: #a0aec0; letter-spacing: 0.5px;
-    }
-    .prod-pack-pill {
+    .spec-pill {
       font-family: 'Space Grotesk', monospace;
-      font-size: 10px; font-weight: 700;
-      color: #e5a93c;
-      padding: 4px 8px;
-      background: rgba(229, 169, 60, 0.12);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #ffd875;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(229, 169, 60, 0.3);
+      padding: 5px 11px;
       border-radius: 6px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
-    /* Product Active Detail HUD */
-    .product-detail-hud {
-      display: flex; flex-direction: column; justify-content: space-between;
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-      padding-left: 28px;
+    .slide-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    .hud-title-row {
-      display: flex; justify-content: space-between; align-items: flex-start;
+    .slide-primary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: linear-gradient(135deg, #f7ce76, #cf8b22);
+      color: #0b0c10;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(229, 169, 60, 0.45);
+      pointer-events: auto !important;
+    }
+    .slide-primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(229, 169, 60, 0.7);
+    }
+    .slide-secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 9px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(229, 169, 60, 0.42);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      pointer-events: auto !important;
+    }
+    .slide-secondary-btn:hover {
+      background: rgba(229, 169, 60, 0.16);
+      border-color: #ffd875;
+      color: #ffd875;
+      transform: translateY(-1px);
+    }
+
+    /* Slide 2 Specifics */
+    #slide-2-img {
+      display: none;
+    }
+
+    /* Slide 3 Compact Product Selector & HUD */
+    .product-pills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
       margin-bottom: 12px;
     }
+    .product-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer !important;
+      transition: all 0.2s ease;
+      pointer-events: auto !important;
+      user-select: none;
+    }
+    .product-tab * { pointer-events: none; }
+    .product-tab:hover {
+      border-color: rgba(229, 169, 60, 0.5);
+      color: #ffd875;
+      background: rgba(229, 169, 60, 0.12);
+      transform: translateY(-1px);
+    }
+    .product-tab.active {
+      background: rgba(229, 169, 60, 0.24);
+      border-color: #e5a93c;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 0 16px rgba(229, 169, 60, 0.35);
+    }
+
+    .product-compact-hud {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(229, 169, 60, 0.25);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 6px;
+    }
     .hud-name {
-      font-family: 'Italiana', serif;
-      font-size: 38px; color: #fff8f0; line-height: 1.1;
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
     }
     .hud-grade {
       font-family: 'Space Grotesk', monospace;
-      font-size: 14px; font-weight: 700;
-      color: #e5a93c; letter-spacing: 1px;
+      font-size: 11px;
+      color: #ffd875;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      margin-top: 2px;
     }
     .hud-desc {
-      font-size: 13px; line-height: 1.6; color: #cbd5e1;
-      margin-bottom: 18px; max-width: 580px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #cbd5e1;
+      margin: 8px 0 10px 0;
     }
-
-    .hud-specs-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 12px; margin-bottom: 18px;
+    .hud-mini-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 11px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 8px;
     }
-    .hud-spec-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px; padding: 10px 12px;
+    .hud-mini-specs .k {
+      color: #94a3b8;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .spec-k { font-size: 9px; text-transform: uppercase; color: #8c93a8; letter-spacing: 1px; margin-bottom: 4px; }
-    .spec-v { font-size: 12px; font-weight: 700; color: #ffffff; }
-
+    .hud-mini-specs .v {
+      color: #f1f5f9;
+      font-weight: 600;
+      display: block;
+    }
     .hud-actions {
-      display: flex; align-items: center; gap: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
     }
     .btn-gold {
-      padding: 10px 22px;
-      background: linear-gradient(135deg, #f5c869, #d49026);
-      color: #121212;
-      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-      border-radius: 20px; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px;
-      position: relative; z-index: 70;
-      pointer-events: auto !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #f7ce76, #cf8b22);
+      color: #0b0c10;
+      font-weight: 700;
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.2s ease;
       cursor: pointer !important;
-      transition: transform 0.25s, box-shadow 0.25s;
+      pointer-events: auto !important;
+      border: none;
     }
-    .btn-gold * { pointer-events: none; }
     .btn-gold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(229, 169, 60, 0.45);
+      box-shadow: 0 4px 18px rgba(229, 169, 60, 0.55);
+      transform: translateY(-1px);
     }
     .btn-outline {
-      padding: 9px 20px;
-      background: transparent; color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
-      border-radius: 20px; text-decoration: none;
-      position: relative; z-index: 70;
-      pointer-events: auto !important;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(229, 169, 60, 0.45);
+      color: #ffd875;
+      font-weight: 600;
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.2s ease;
       cursor: pointer !important;
-      transition: border-color 0.25s, color 0.25s;
+      pointer-events: auto !important;
     }
     .btn-outline:hover {
-      border-color: #e5a93c; color: #e5a93c;
+      background: rgba(229, 169, 60, 0.16);
+      border-color: #ffd875;
     }
 
-    /* Slide 4: About Section (Laocoön Editorial Style) */
-    #slide-4 {
-      left: 60px;
-      width: calc(100% - 120px);
-      bottom: 8%;
-    }
-    #slide-4 .slide-title { font-size: 84px; margin-bottom: 16px; }
-    .about-cards-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      position: relative;
-      z-index: 60;
-    }
-    .slide.active .about-cards-grid {
-      pointer-events: auto !important;
-    }
-    .about-metric-card {
-      background: rgba(16, 18, 26, 0.72);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(229, 169, 60, 0.2);
-      border-radius: 14px;
-      padding: 24px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      min-height: 160px;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-    .about-metric-card:hover {
-      transform: translateY(-6px);
-      border-color: #e5a93c;
-    }
-    .metric-num {
-      font-family: 'Italiana', serif;
-      font-size: 54px; color: #e5a93c; line-height: 1;
-      margin-bottom: 8px;
-    }
-    .metric-label {
-      font-size: 13px; font-weight: 700; color: #ffffff; margin-bottom: 4px;
-    }
-    .metric-sub {
-      font-size: 11px; color: #94a3b8; line-height: 1.5;
-    }
-
-    /* Slide 5: Delivery & Dealer Enquiry */
-    #slide-5 {
-      left: 60px;
-      width: calc(100% - 120px);
-      bottom: 8%;
-    }
-    #slide-5 .slide-title { font-size: 78px; margin-bottom: 12px; }
-    .dealer-grid {
-      display: grid; grid-template-columns: 1fr 1.2fr;
-      gap: 32px;
-      position: relative;
-      z-index: 60;
-    }
-    .slide.active .dealer-grid {
-      pointer-events: auto !important;
-    }
-    .dealer-info-card, .dealer-form-card {
-      background: rgba(14, 16, 24, 0.82);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(229, 169, 60, 0.25);
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
-      position: relative;
-      z-index: 70;
-    }
-    .slide.active .dealer-info-card,
-    .slide.active .dealer-form-card {
-      pointer-events: auto !important;
-    }
-    .dealer-headline {
-      font-family: 'Italiana', serif;
-      font-size: 32px; color: #ffffff; margin-bottom: 12px;
-    }
-    .dealer-lead {
-      font-size: 13px; line-height: 1.7; color: #cbd5e1; margin-bottom: 20px;
-    }
-    .contact-item {
-      display: flex; align-items: center; gap: 14px;
+    /* Slide 4 Compact About Us Grid */
+    .about-compact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
       margin-bottom: 14px;
     }
-    .contact-icon {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(229, 169, 60, 0.15);
-      border: 1px solid rgba(229, 169, 60, 0.35);
-      color: #e5a93c; display: flex; align-items: center; justify-content: center;
-    }
-    .contact-detail-title { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
-    .contact-detail-val { font-size: 14px; font-weight: 700; color: #ffffff; text-decoration: none; }
-    .contact-detail-val:hover { color: #e5a93c; }
-
-    /* Enquiry Quick Form */
-    .form-row { display: flex; gap: 12px; margin-bottom: 12px; }
-    .form-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: #ffffff;
-      font-family: 'Outfit', sans-serif;
-      font-size: 12px;
-      outline: none;
+    .metric-mini-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(229, 169, 60, 0.22);
+      border-radius: 10px;
+      padding: 12px 14px;
       transition: border-color 0.2s;
     }
-    .form-input:focus { border-color: #e5a93c; background: rgba(255, 255, 255, 0.08); }
-    .form-submit-btn {
+    .metric-mini-card:hover {
+      border-color: #e5a93c;
+    }
+    .metric-mini-card .metric-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      color: #ffd875;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .metric-mini-card .metric-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+    .metric-mini-card .metric-sub {
+      font-size: 10px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    /* Slide 5 Compact Dealer Inquiry */
+    .contact-mini-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(229, 169, 60, 0.12);
+      border: 1px solid rgba(229, 169, 60, 0.35);
+      border-radius: 20px;
+      color: #ffd875;
+      font-size: 11px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      pointer-events: auto !important;
+    }
+    .contact-pill:hover {
+      background: #e5a93c;
+      color: #121212;
+    }
+    .dealer-mini-form .form-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .dealer-mini-form .form-input {
       width: 100%;
-      padding: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      outline: none;
+      transition: border-color 0.2s;
+      pointer-events: auto !important;
+    }
+    .dealer-mini-form .form-input:focus {
+      border-color: #e5a93c;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .dealer-mini-form .form-submit-btn {
+      width: 100%;
+      padding: 11px;
       background: linear-gradient(135deg, #f5c869, #d49026);
       color: #121212;
       border: none;
       border-radius: 8px;
       font-family: 'Outfit', sans-serif;
-      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      pointer-events: auto !important;
     }
-    .form-submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(229, 169, 60, 0.5);
+    .dealer-mini-form .form-submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(229, 169, 60, 0.5);
     }
 
     /* Notification Toast */
@@ -612,11 +680,25 @@
       z-index: 15; pointer-events: none;
     }
 
-    @media (max-width: 1024px) {
-      .slide-title { font-size: 64px; }
-      .product-showroom-panel { grid-template-columns: 1fr; }
-      .about-cards-grid { grid-template-columns: repeat(2, 1fr); }
-      .dealer-grid { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      .slide {
+        left: 20px;
+        width: calc(100% - 40px);
+        max-width: 100%;
+        bottom: 5%;
+      }
+      .slide-card {
+        padding: 24px;
+      }
+      .slide-title {
+        font-size: 38px;
+      }
+      .product-pills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .about-compact-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 
@@ -647,27 +729,28 @@
   <div class="cinematic-container">
     <!-- Luxury Header -->
     <header class="main-header">
-      <div class="brand-wrap">
-        <div class="brand-monogram">JB</div>
+      <a href="index.html" class="brand-wrap">
+        <img src="assets/logo.png" alt="J B TRADERS - The Lube Expert" class="brand-logo-img">
         <div class="brand-text">
           <span class="brand-name">J B Traders</span>
-          <span class="brand-sub">Gandhi Oil Hub</span>
+          <span class="brand-sub">The Lube Expert · Gandhi Oil</span>
         </div>
-      </div>
+      </a>
 
       <nav class="header-nav">
-        <a href="#slide-1" class="nav-link active-nav" data-target-scroll="0.0">Liquid Gold</a>
+        <a href="index.html" class="nav-link active-nav" data-target-scroll="0.0">HOME</a>
         <span class="nav-dot"></span>
-        <a href="#slide-2" class="nav-link" data-target-scroll="0.25">Protection</a>
+        <a href="showroom.html" class="nav-link" data-target-scroll="0.45">PRODUCT</a>
         <span class="nav-dot"></span>
-        <a href="#slide-3" class="nav-link" data-target-scroll="0.50">3D Showroom</a>
+        <a href="about.html" class="nav-link" data-target-scroll="0.75">ABOUT</a>
         <span class="nav-dot"></span>
-        <a href="#slide-4" class="nav-link" data-target-scroll="0.75">About Us</a>
-        <span class="nav-dot"></span>
-        <a href="#slide-5" class="nav-link" data-target-scroll="0.95">Dealer Enquiry</a>
+        <a href="dealer-enquiry.html" class="nav-link" data-target-scroll="0.95">DEALER ENQUIRY</a>
       </nav>
 
       <div class="header-actions">
+        <a href="https://wa.me/919604313912?text=Hello%20J%20B%20Traders,%20I%20would%20like%20to%20enquire%20about%20dealer%20lubricant%20pricing." target="_blank" class="whatsapp-header-btn" title="Chat on WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.19-.09-1.1-.54-1.27-.6-.17-.06-.3-.09-.43.1-.13.19-.49.6-.6.73-.11.13-.23.14-.42.05-.19-.1-.8-.3-1.53-.95-.57-.51-.95-1.13-1.06-1.32-.11-.19-.01-.29.08-.38.08-.09.19-.23.29-.35.1-.11.13-.19.19-.32.06-.13.03-.24-.02-.34-.05-.1-.43-1.04-.59-1.43-.16-.38-.32-.33-.43-.33-.11 0-.24-.01-.36-.01-.13 0-.34.05-.51.24-.18.19-.68.66-.68 1.62s.7 1.88.79 2c.1.13 1.37 2.1 3.32 2.94.46.2.83.32 1.11.41.47.15.89.13 1.23.08.38-.06 1.1-.45 1.25-.89.16-.43.16-.81.11-.89-.05-.08-.17-.13-.36-.23z"/></svg>
+        </a>
         <a href="tel:+919604313912" class="contact-btn">
           Call Now <span class="btn-circle"></span>
         </a>
@@ -676,243 +759,186 @@
 
     <!-- Slide 1: Liquid Gold For Every Engine -->
     <div class="slide active" id="slide-1">
-      <div class="slide-tag">Authorised Dealer · Motocoat · Finolube · HPCL</div>
-      <h1 class="slide-title">Liquid Gold <br>&amp; Every Engine</h1>
-      <div class="desc-row">
-        <p class="slide-desc col-1">Genuine engine oils, tractor oils, industrial lubricants, and grease at wholesale dealer prices. Engineered to protect machinery from high-rpm bikes to heavy-duty earthmoving JCBs.</p>
-        <p class="slide-desc col-2">Born of thermal refinement and chemical excellence. A fluid energy formulated to reduce friction, dissipate extreme heat, and guarantee uncompromised horsepower.</p>
+      <div class="slide-card">
+        <div class="slide-tag">Authorised Distributor · Motocoat · Finolube · HPCL</div>
+        <h1 class="slide-title">Liquid Gold <br>For Every Engine</h1>
+        <p class="slide-lead">Genuine high-performance engine oils, heavy tractor oils, industrial lubricants, and grease at direct wholesale dealer prices.</p>
+        <div class="slide-specs-pills">
+          <span class="spec-pill">Heavy Duty JCB 15W-40</span>
+          <span class="spec-pill">Tractor UTTO &amp; STOU</span>
+          <span class="spec-pill">Hydraulic 68 &amp; Gear 90</span>
+          <span class="spec-pill">Synthetic 4T / 5W-30</span>
+        </div>
+        <div class="slide-actions-row">
+          <a href="showroom.html" class="slide-primary-btn">
+            Explore 3D Products &rarr;
+          </a>
+          <a href="dealer-enquiry.html" class="slide-secondary-btn">
+            Dealer Enquiry
+          </a>
+        </div>
       </div>
-    </div>
-
-    <!-- Slide 2: Expanding Image Reveal Mask -->
-    <div class="slide-image-mask" id="slide-2-img">
-      <img src="assets/hero-oil.jpg" alt="Liquid Gold Engine Oil Pouring" onerror="this.src='https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/lovp_30fpe89dn788ar82er9n61dzfs/b60fb907a813d0e614704387a38b73a8_1792839009808.png';">
     </div>
 
     <!-- Slide 2: Engineered Protection -->
     <div class="slide" id="slide-2">
-      <div class="slide-tag">Unmatched Shear Stability</div>
-      <h2 class="slide-title">Engineered <br>Protection</h2>
-      <p class="slide-desc">A molecular barrier engineered at the peak of heavy industrial stress. High-grade CI-4 and synthetic esters resisting thermal breakdown, soot accumulation, and corrosive acid wear across thousands of operating hours.</p>
+      <div class="slide-card">
+        <div class="slide-tag">Molecular Shear Stability</div>
+        <h2 class="slide-title">Engineered <br>Protection</h2>
+        <p class="slide-lead">A high-strength molecular film engineered for heavy industrial friction. High-grade CI-4 and synthetic esters resisting thermal breakdown, soot accumulation, and corrosive acid wear across thousands of operating hours.</p>
+        <div class="slide-specs-pills">
+          <span class="spec-pill">Zero Viscosity Breakdown</span>
+          <span class="spec-pill">Extreme Pressure EP Additives</span>
+          <span class="spec-pill">Anti-Wear Detergents</span>
+        </div>
+        <div class="slide-actions-row">
+          <a href="protection.html" class="slide-primary-btn">
+            Viscosity Science &rarr;
+          </a>
+          <a href="showroom.html" class="slide-secondary-btn">
+            View 3D Can
+          </a>
+        </div>
+      </div>
     </div>
 
-    <!-- Slide 3: 3D Products Showroom (Our Design + Laocoön Mix) -->
+    <!-- Slide 3: Products Showroom -->
     <div class="slide" id="slide-3">
-      <div class="slide-header-wrap">
-        <div>
-          <div class="slide-tag">Interactive 3D Showroom · Live Model Switcher</div>
-          <h2 class="slide-title">Products &amp; Viscosity</h2>
-        </div>
-        <p style="font-size: 12px; color: #94a3b8; max-width: 320px; line-height: 1.6; text-align: right;">
-          Click any product category below to dynamically update the 3D can model size, proportions, and custom label texture.
-        </p>
-      </div>
+      <div class="slide-card">
+        <div class="slide-tag">Interactive 3D Showroom · Live Switcher</div>
+        <h2 class="slide-title" style="font-size: 42px; margin-bottom: 8px;">Products &amp; Viscosity</h2>
+        <p class="slide-lead" style="font-size: 13.5px; margin-bottom: 12px;">Select any pack category below to inspect live 3D models and specifications.</p>
 
-      <div class="product-showroom-panel">
-        <!-- Product Tabs -->
-        <div class="product-list">
+        <!-- Compact Product Category Selector Tabs -->
+        <div class="product-pills-grid">
           <div class="product-tab" data-prod="2wheeler" onclick="selectProduct('2wheeler')">
-            <div>
-              <div class="prod-info-title">2 Wheeler Oil</div>
-              <div class="prod-info-sub">Bikes &amp; Scooters · 4T Engine</div>
-            </div>
-            <div class="prod-pack-pill">1L Pack</div>
+            <span>2 Wheeler (1L)</span>
           </div>
-
           <div class="product-tab" data-prod="3wheeler" onclick="selectProduct('3wheeler')">
-            <div>
-              <div class="prod-info-title">3 Wheeler Oil</div>
-              <div class="prod-info-sub">Auto Rickshaw · CNG &amp; Diesel</div>
-            </div>
-            <div class="prod-pack-pill">3L Pack</div>
+            <span>3 Wheeler (3L)</span>
           </div>
-
           <div class="product-tab" data-prod="4wheeler" onclick="selectProduct('4wheeler')">
-            <div>
-              <div class="prod-info-title">4 Wheeler Oil</div>
-              <div class="prod-info-sub">Car &amp; SUV · Full Synthetic</div>
-            </div>
-            <div class="prod-pack-pill">3.5L Pack</div>
+            <span>4 Wheeler (3.5L)</span>
           </div>
-
           <div class="product-tab active" data-prod="jcb" onclick="selectProduct('jcb')">
-            <div>
-              <div class="prod-info-title">JCB &amp; Earth Moving</div>
-              <div class="prod-info-sub">Loaders, Excavators &amp; Heavy Fleet</div>
-            </div>
-            <div class="prod-pack-pill">5L Pack</div>
+            <span>JCB Heavy (5L)</span>
           </div>
-
           <div class="product-tab" data-prod="tractor" onclick="selectProduct('tractor')">
-            <div>
-              <div class="prod-info-title">Tractor Oil &amp; UTTO</div>
-              <div class="prod-info-sub">Engine, Wet Brakes &amp; Hydraulics</div>
-            </div>
-            <div class="prod-pack-pill">5L Pack</div>
+            <span>Tractor UTTO</span>
           </div>
-
           <div class="product-tab" data-prod="industrial" onclick="selectProduct('industrial')">
-            <div>
-              <div class="prod-info-title">Industrial &amp; Grease</div>
-              <div class="prod-info-sub">Hydraulic 68, Gear 90/140 &amp; MP3</div>
-            </div>
-            <div class="prod-pack-pill">5L / Barrel</div>
+            <span>Industrial 68</span>
           </div>
         </div>
 
-        <!-- Dynamic Product Detail HUD -->
-        <div class="product-detail-hud">
-          <div>
-            <div class="hud-title-row">
-              <div>
-                <div class="hud-name" id="hud-name">JCB &amp; Earth Moving</div>
-                <div class="hud-grade" id="hud-grade">15W-40 CI-4 Heavy Duty Commercial Pack</div>
-              </div>
-            </div>
-            <p class="hud-desc" id="hud-desc">
-              Heavy-duty diesel engine, hydraulic and transmission lubricant engineered specifically for heavy earthmoving machinery operating under extreme loads and severe dust environments.
-            </p>
-
-            <div class="hud-specs-grid">
-              <div class="hud-spec-card">
-                <div class="spec-k">Available Viscosities</div>
-                <div class="spec-v" id="hud-visc">15W-40 CI-4 · HYD 68 · UTTO</div>
-              </div>
-              <div class="hud-spec-card">
-                <div class="spec-k">Packaging Standard</div>
-                <div class="spec-v" id="hud-pack">5L Can · 20L Bucket · 210L Drum</div>
-              </div>
-              <div class="hud-spec-card">
-                <div class="spec-k">Primary Advantage</div>
-                <div class="spec-v" id="hud-adv">High Thermal &amp; Anti-Soot Shield</div>
-              </div>
-            </div>
+        <!-- Dynamic Product Detail HUD Card -->
+        <div class="product-compact-hud">
+          <div class="hud-name" id="hud-name">JCB &amp; Earth Moving</div>
+          <div class="hud-grade" id="hud-grade">15W-40 CI-4 Heavy Duty Commercial Pack</div>
+          <p class="hud-desc" id="hud-desc">
+            Heavy-duty diesel engine, hydraulic and transmission lubricant engineered specifically for heavy earthmoving machinery operating under extreme loads and severe dust environments.
+          </p>
+          <div class="hud-mini-specs">
+            <div><span class="k">Viscosity:</span> <strong class="v" id="hud-visc">15W-40 CI-4</strong></div>
+            <div><span class="k">Packs:</span> <strong class="v" id="hud-pack">5L Can · 20L Bucket · 210L Drum</strong></div>
           </div>
-
           <div class="hud-actions">
-            <a href="https://wa.me/919604313912?text=Hello%20J%20B%20Traders,%20I%20am%20interested%20in%20dealer%20pricing%20for%20JCB%20and%20Earth%20Moving%20oil." target="_blank" class="btn-gold">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              Enquire On WhatsApp
+            <a href="https://wa.me/919604313912?text=Hello%20J%20B%20Traders,%20I%20am%20interested%20in%20dealer%20pricing%20for%20JCB%20oil." target="_blank" class="btn-gold">
+              WhatsApp Quote
             </a>
             <button class="btn-outline" onclick="triggerCanSpin()">
-              Spin 360° Inspection
+              Spin 360°
             </button>
+            <a href="showroom.html" class="slide-secondary-btn" style="padding: 7px 14px; font-size: 10px;">
+              Full Showroom &rarr;
+            </a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Slide 4: About Us Section (Heritage & Metrics) -->
+    <!-- Slide 4: About Us Section -->
     <div class="slide" id="slide-4">
-      <div class="slide-tag">Authorised Distributor &amp; Network</div>
-      <h2 class="slide-title">Keeping Engines <br>Running</h2>
-      <div class="about-cards-grid">
-        <div class="about-metric-card">
-          <div>
+      <div class="slide-card">
+        <div class="slide-tag">Authorised Distributor &amp; Network</div>
+        <h2 class="slide-title" style="font-size: 42px; margin-bottom: 8px;">Keeping Engines <br>Running</h2>
+        <p class="slide-lead" style="font-size: 13.5px; margin-bottom: 14px;">Gandhi Oil Depot · Reliable lubricant logistics direct to workshops, fleet owners, and garages across Maharashtra.</p>
+        <div class="about-compact-grid">
+          <div class="metric-mini-card">
             <div class="metric-num">3</div>
             <div class="metric-label">Trusted Brands</div>
+            <div class="metric-sub">Motocoat, Finolube &amp; HPCL.</div>
           </div>
-          <div class="metric-sub">Authorised dealer of Motocoat, Finolube, and HPCL lubricants with 100% factory authenticity seal.</div>
-        </div>
-
-        <div class="about-metric-card">
-          <div>
+          <div class="metric-mini-card">
             <div class="metric-num">8+</div>
             <div class="metric-label">Product Categories</div>
+            <div class="metric-sub">Bikes, cars, autos, tractors &amp; JCBs.</div>
           </div>
-          <div class="metric-sub">From 2-wheelers, 4-wheelers, autos, and tractors to heavy earthmovers and factory machinery.</div>
-        </div>
-
-        <div class="about-metric-card">
-          <div>
+          <div class="metric-mini-card">
             <div class="metric-num">1L–210L</div>
-            <div class="metric-label">Pack Capacities</div>
+            <div class="metric-label">Pack Sizes</div>
+            <div class="metric-sub">Retail cans, buckets, and bulk drums.</div>
           </div>
-          <div class="metric-sub">Flexible logistics ranging from 1-liter retail packs to 5-liter cans, 20-liter buckets, and 210-liter barrels.</div>
-        </div>
-
-        <div class="about-metric-card">
-          <div>
+          <div class="metric-mini-card">
             <div class="metric-num">100%</div>
             <div class="metric-label">Dealer Pricing</div>
+            <div class="metric-sub">Genuine certified factory lubricants.</div>
           </div>
-          <div class="metric-sub">Fast on-time delivery direct to garages, workshops, fleet contractors, and agricultural co-ops.</div>
+        </div>
+        <div style="margin-top: 14px;">
+          <a href="about.html" class="slide-primary-btn">
+            Read Our Heritage &rarr;
+          </a>
         </div>
       </div>
     </div>
 
     <!-- Slide 5: Dealer & Delivery Enquiry -->
     <div class="slide" id="slide-5">
-      <div class="slide-tag">Fast Delivery to Garages &amp; Dealers</div>
-      <h2 class="slide-title">Partner With Us</h2>
-      <div class="dealer-grid">
-        <!-- Contact Information -->
-        <div class="dealer-info-card">
-          <div class="dealer-headline">J B Traders (Gandhi Oil)</div>
-          <p class="dealer-lead">
-            Whether you are servicing a single bike or managing an entire fleet of JCBs, we provide wholesale pricing, genuine oil certification, and prompt delivery.
-          </p>
-
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </div>
-            <div>
-              <div class="contact-detail-title">Call Helpline</div>
-              <a href="tel:+919604313912" class="contact-detail-val">+91 96043 13912</a>
-            </div>
-          </div>
-
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div>
-              <div class="contact-detail-title">Email Enquiries</div>
-              <a href="mailto:thelubeexpert999@gmail.com" class="contact-detail-val">thelubeexpert999@gmail.com</a>
-            </div>
-          </div>
-
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
-            <div>
-              <div class="contact-detail-title">Headquarters</div>
-              <div class="contact-detail-val">Gandhi Oil Depot, Maharashtra</div>
-            </div>
-          </div>
+      <div class="slide-card">
+        <div class="slide-tag">Direct Wholesale Supply</div>
+        <h2 class="slide-title" style="font-size: 42px; margin-bottom: 8px;">Partner With Us</h2>
+        <p class="slide-lead" style="font-size: 13px; margin-bottom: 12px;">
+          Get wholesale workshop rates, genuine brand seal, and prompt delivery direct to your location.
+        </p>
+        <div class="contact-mini-row">
+          <a href="tel:+919604313912" class="contact-pill">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +91 96043 13912
+          </a>
+          <a href="mailto:thelubeexpert999@gmail.com" class="contact-pill">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            thelubeexpert999@gmail.com
+          </a>
         </div>
 
-        <!-- Quick Quotation Form -->
-        <div class="dealer-form-card">
-          <div class="dealer-headline">Request Dealer Price List</div>
-          <form onsubmit="handleFormSubmit(event)">
-            <div class="form-row">
-              <input type="text" class="form-input" id="form-name" placeholder="Your Name / Workshop Name" required>
-              <input type="tel" class="form-input" id="form-phone" placeholder="Phone / WhatsApp Number" required>
-            </div>
-            <div class="form-row">
-              <select class="form-input" id="form-cat">
-                <option value="JCB & Earth Moving">JCB &amp; Earth Moving (15W-40 CI-4)</option>
-                <option value="Tractor Oil">Tractor Oil (STOU &amp; UTTO)</option>
-                <option value="2 Wheeler 4T">2 Wheeler Oil (4T 20W-40)</option>
-                <option value="4 Wheeler Synthetic">4 Wheeler Synthetic (5W-30)</option>
-                <option value="Commercial 3 Wheeler">3 Wheeler CNG Oil</option>
-                <option value="Industrial Hydraulic">Industrial Hydraulic (HYD 68)</option>
-              </select>
-              <select class="form-input" id="form-vol">
-                <option value="50-100 Litres">50 – 100 Litres / Month</option>
-                <option value="100-500 Litres">100 – 500 Litres / Month</option>
-                <option value="Bulk Barrels">Bulk Barrels (210L+)</option>
-                <option value="Retail Packs">Retail Cans (5L / 1L)</option>
-              </select>
-            </div>
-            <div style="margin-bottom: 14px;">
-              <input type="text" class="form-input" id="form-loc" placeholder="Your City / Garage Location (e.g. Pune / Kolhapur)">
-            </div>
-            <button type="submit" class="form-submit-btn">Send Wholesale Enquiry</button>
-          </form>
+        <form onsubmit="handleFormSubmit(event)" class="dealer-mini-form">
+          <div class="form-row">
+            <input type="text" class="form-input" id="form-name" placeholder="Workshop / Garage Name" required>
+            <input type="tel" class="form-input" id="form-phone" placeholder="WhatsApp / Phone" required>
+          </div>
+          <div class="form-row">
+            <select class="form-input" id="form-cat">
+              <option value="JCB & Earth Moving">JCB 15W-40 CI-4</option>
+              <option value="Tractor Oil">Tractor STOU / UTTO</option>
+              <option value="2 Wheeler 4T">2 Wheeler 4T 20W-40</option>
+              <option value="4 Wheeler Synthetic">4 Wheeler 5W-30</option>
+              <option value="Commercial 3 Wheeler">3 Wheeler CNG Oil</option>
+              <option value="Industrial Hydraulic">Hydraulic 68 / Gear 90</option>
+            </select>
+            <select class="form-input" id="form-vol">
+              <option value="50-100L">50 – 100 Litres</option>
+              <option value="100-500L">100 – 500 Litres</option>
+              <option value="Bulk Barrels">Bulk Barrels (210L)</option>
+              <option value="Retail Cans">Retail Cans (5L/1L)</option>
+            </select>
+          </div>
+          <button type="submit" class="form-submit-btn">Request Wholesale Rates on WhatsApp &rarr;</button>
+        </form>
+        <div style="margin-top: 10px; text-align: center;">
+          <a href="dealer-enquiry.html" style="font-size: 11px; color: #ffd875; text-decoration: none; letter-spacing: 1px; font-weight: 600;">
+            Open Wholesale Dealer Rates Portal &rarr;
+          </a>
         </div>
       </div>
     </div>
@@ -1273,18 +1299,18 @@
         }
       });
 
-      // Scale can to fit camera view
+      // Scale can to fit camera view with increased size (+30%)
       const boxInitial = new THREE.Box3().setFromObject(gltfModel);
       const sizeInitial = boxInitial.getSize(new THREE.Vector3());
       const maxDim = Math.max(sizeInitial.x, sizeInitial.y, sizeInitial.z);
-      const targetScale = 2.85 / (maxDim > 0.0001 ? maxDim : 1);
+      const targetScale = 3.65 / (maxDim > 0.0001 ? maxDim : 1);
       gltfModel.scale.setScalar(targetScale);
       gltfModel.updateMatrixWorld(true);
 
       const boxScaled = new THREE.Box3().setFromObject(gltfModel);
       const centerScaled = boxScaled.getCenter(new THREE.Vector3());
       gltfModel.position.sub(centerScaled);
-      modelPivot.position.y = -0.15;
+      modelPivot.position.set(window.innerWidth > 900 ? 1.05 : 0.0, -0.06, 0);
 
       showToast("J B TRADERS 3D Can Loaded");
 
@@ -1475,18 +1501,19 @@
       if (slide4) slide4.classList.toggle('active', isActive(scroll, 0.70, 0.85));
       if (slide5) slide5.classList.toggle('active', isActive(scroll, 0.88, 1.05));
 
-      // Update Header nav active state
+      // Update Header nav active state for 4 buttons (HOME, PRODUCT, ABOUT, DEALER ENQUIRY)
       const navLinks = document.querySelectorAll('.nav-link');
       const ranges = [
-        [0.0, 0.15],
-        [0.15, 0.40],
-        [0.40, 0.68],
-        [0.68, 0.86],
-        [0.86, 1.0]
+        [0.0, 0.35],
+        [0.35, 0.65],
+        [0.65, 0.85],
+        [0.85, 1.0]
       ];
       navLinks.forEach((link, idx) => {
-        const inRange = scroll >= ranges[idx][0] && scroll <= ranges[idx][1];
-        link.classList.toggle('active-nav', inRange);
+        if (ranges[idx]) {
+          const inRange = scroll >= ranges[idx][0] && scroll <= ranges[idx][1];
+          link.classList.toggle('active-nav', inRange);
+        }
       });
     }
 
@@ -1494,11 +1521,28 @@
       const navLinks = document.querySelectorAll('.nav-link');
       navLinks.forEach((link) => {
         link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          if (href && href.endsWith('.html') && !href.startsWith('#')) {
+            // Allow natural page navigation
+            return;
+          }
           e.preventDefault();
           const targetFrac = parseFloat(link.getAttribute('data-target-scroll') || '0');
           const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
           const targetY = maxScroll * targetFrac;
           window.scrollTo({ top: targetY, behavior: 'smooth' });
+        });
+      });
+
+      // Enable clicking on the story dashes to scrub through 3D story slides
+      const storyDashes = document.querySelectorAll('.story-dash');
+      const targetFracs = [0.0, 0.25, 0.50, 0.75, 0.95];
+      storyDashes.forEach((dash, idx) => {
+        dash.style.cursor = 'pointer';
+        dash.setAttribute('title', `Go to Slide ${idx + 1}`);
+        dash.addEventListener('click', () => {
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          window.scrollTo({ top: maxScroll * targetFracs[idx], behavior: 'smooth' });
         });
       });
     }
@@ -1568,9 +1612,16 @@
         cursorOuter.style.top = `${outerCursorY}px`;
       }
 
-      // 3D Model interactive mouse parallax tilt
+      // 3D Model stationing on Right Side + smooth continuous rotation driven by scroll & mouse
+      const isDesktop = sizes.width > 900;
+      const targetCanX = isDesktop ? 1.05 : 0.0;
       if (modelPivot) {
-        modelPivot.rotation.y = mouseX * 0.28;
+        modelPivot.position.x += (targetCanX - modelPivot.position.x) * 0.08;
+        modelPivot.position.y = -0.06;
+
+        // Smooth 3D rotation revealing all sides of the can during scroll
+        const targetRotY = currentScroll * Math.PI * 3.6 + mouseX * 0.28;
+        modelPivot.rotation.y += (targetRotY - modelPivot.rotation.y) * 0.08;
         modelPivot.rotation.x = mouseY * 0.16;
         modelPivot.scale.lerp(targetScaleVec, 0.08);
       }
@@ -1603,20 +1654,12 @@
         sparkParticles.geometry.attributes.position.needsUpdate = true;
       }
 
-      // Camera Orbit around 3D Can
-      const phi = currentScroll * Math.PI * 2.2;
-      const y = 0.32 + Math.sin(currentScroll * Math.PI) * 0.75;
-      const radius = 4.2 - Math.sin(currentScroll * Math.PI) * 0.5;
-      const x = radius * Math.sin(phi);
-      const z = radius * Math.cos(phi);
-
-      let transitionProgress = Math.min(1.0, currentScroll / 0.28);
-      let easeFactor = (Math.cos(transitionProgress * Math.PI) + 1.0) * 0.5;
-      const lookAtXOffset = -0.85 * easeFactor;
-      const targetLookAt = new THREE.Vector3(lookAtXOffset, -0.12, 0);
-      const targetPos = new THREE.Vector3(x, y, z);
-      camera.position.lerp(targetPos, 0.028);
-      camera.lookAt(targetLookAt);
+      // Stable Camera Position with Subtle Cinematic Elevation Drift
+      const camY = 0.16 + Math.sin(currentScroll * Math.PI) * 0.32;
+      const camZ = 4.35 - Math.sin(currentScroll * Math.PI) * 0.22;
+      const targetPos = new THREE.Vector3(0, camY, camZ);
+      camera.position.lerp(targetPos, 0.035);
+      camera.lookAt(new THREE.Vector3(0, -0.06, 0));
 
       if (shaderUniforms) {
         shaderUniforms.uTime.value = clock.getElapsedTime();
