@@ -28,10 +28,11 @@
       font-family: 'Outfit', sans-serif;
       color: #ffffff;
       overflow-x: hidden;
-      cursor: none;
     }
 
-    * { cursor: none !important; }
+    a, button, [role="button"], input[type="submit"], input[type="button"], select {
+      cursor: pointer;
+    }
 
     ::-webkit-scrollbar { display: none; width: 0; }
 
@@ -41,36 +42,6 @@
       width: 100%; height: 100%;
       z-index: 1;
       outline: none;
-    }
-
-    /* Custom Dual Magnetic Cursor */
-    .cursor-inner {
-      position: fixed; top: 0; left: 0;
-      width: 6px; height: 6px;
-      border: 2px solid #e5a93c;
-      background: #ffffff;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 10px #e5a93c;
-    }
-    .cursor-outer {
-      position: fixed; top: 0; left: 0;
-      width: 44px; height: 44px;
-      border: 1.5px solid rgba(229, 169, 60, 0.65);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9998;
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.3s, background 0.3s;
-    }
-    .cursor-outer.hovered {
-      width: 64px; height: 64px;
-      border-color: rgba(255, 215, 100, 0.9);
-      background: rgba(229, 169, 60, 0.08);
     }
 
     /* Fixed Editorial Grid System */
@@ -583,6 +554,135 @@
       line-height: 1.4;
     }
 
+    /* Slide 4 Dual-Column Layout: Left Pouring Oil Showcase Box, Right Keeping Engines Running Card */
+    #slide-4.slide-dual-layout {
+      left: 60px;
+      right: 60px;
+      width: calc(100% - 120px);
+      max-width: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 36px;
+      bottom: 8%;
+    }
+
+    /* Left Showcase Box with Black Background & Smooth Up to Down Transition - Full Box Image */
+    .slide-4-image-box {
+      flex: 1;
+      max-width: 500px;
+      height: 480px;
+      max-height: calc(100vh - 160px);
+      background: #000000;
+      background: radial-gradient(circle at 55% 45%, #0c0f16 0%, #020305 75%, #000000 100%);
+      border: 1px solid rgba(229, 169, 60, 0.45);
+      border-radius: 28px;
+      padding: 0;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95),
+                  0 0 50px rgba(229, 169, 60, 0.22),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      pointer-events: auto !important;
+      /* Smooth UP TO DOWN transition: starts from above (-90px) and smoothly slides down into place */
+      opacity: 0;
+      transform: translateY(-90px);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.75s ease,
+                  box-shadow 0.6s ease;
+    }
+
+    /* When Slide 4 is active, the image box smoothly drops down into view */
+    #slide-4.active .slide-4-image-box {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pour-ambient-glow {
+      position: absolute;
+      top: 15%;
+      left: 20%;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(229, 169, 60, 0.32) 0%, rgba(207, 139, 34, 0.1) 50%, transparent 70%);
+      filter: blur(45px);
+      pointer-events: none;
+      z-index: 1;
+      animation: pourGlowPulse 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes pourGlowPulse {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      100% { transform: scale(1.1); opacity: 1.0; }
+    }
+
+    .pour-img-full {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9));
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide-4-image-box:hover .pour-img-full {
+      transform: scale(1.03);
+    }
+
+    /* Right Card: Keeping Engines Running */
+    .slide-4-card {
+      flex: 1;
+      max-width: 530px;
+      margin-left: auto;
+      transform: translateY(24px);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease;
+    }
+
+    #slide-4.active .slide-4-card {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      #slide-4.slide-dual-layout {
+        gap: 20px;
+      }
+      .slide-4-image-box {
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      #slide-4.slide-dual-layout {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+        top: 80px;
+        bottom: 20px;
+        gap: 16px;
+      }
+      .slide-4-image-box {
+        width: 100%;
+        max-width: 100%;
+        height: 260px;
+        min-height: 260px;
+      }
+      .slide-4-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 22px 24px;
+      }
+      .about-compact-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+
     /* Slide 5 Compact Dealer Inquiry */
     .contact-mini-row {
       display: flex;
@@ -713,9 +813,6 @@
   </script>
 </head>
 <body>
-  <!-- Dual Magnetic Cursor -->
-  <div class="cursor-inner"></div>
-  <div class="cursor-outer"></div>
 
   <!-- Viewport 3D Hint -->
   <div class="viewport-3d-hint">Scroll to Orbit · Drag to Tilt Can</div>
@@ -730,7 +827,7 @@
     <!-- Luxury Header -->
     <header class="main-header">
       <a href="index.html" class="brand-wrap">
-        <img src="assets/logo.png" alt="J B TRADERS - The Lube Expert" class="brand-logo-img">
+        <img src="assets/logo.png" onerror="this.onerror=null; this.src='../assets/logo.png';" alt="J B TRADERS - The Lube Expert" class="brand-logo-img">
         <div class="brand-text">
           <span class="brand-name">J B Traders</span>
           <span class="brand-sub">The Lube Expert · Gandhi Oil</span>
@@ -857,9 +954,19 @@
       </div>
     </div>
 
-    <!-- Slide 4: About Us Section -->
-    <div class="slide" id="slide-4">
-      <div class="slide-card">
+    <!-- Slide 4: About Us Section (Pouring Oil Box on Left, Keeping Engines Running Card on Right) -->
+    <div class="slide slide-dual-layout" id="slide-4">
+      <!-- Left: Smooth Up-to-Down Pouring Oil Showcase Box in Black Background (Full Box Image) -->
+      <div class="slide-4-image-box">
+        <div class="pour-ambient-glow"></div>
+        <img src="assets/pour_oil.png"
+             onerror="this.onerror=null; this.src='../assets/pour_oil.png';"
+             alt="Liquid Gold Engine Oil Pour"
+             class="pour-img-full">
+      </div>
+
+      <!-- Right: Keeping Engines Running Card -->
+      <div class="slide-card slide-4-card">
         <div class="slide-tag">Authorised Distributor &amp; Network</div>
         <h2 class="slide-title" style="font-size: 42px; margin-bottom: 8px;">Keeping Engines <br>Running</h2>
         <p class="slide-lead" style="font-size: 13.5px; margin-bottom: 14px;">Gandhi Oil Depot · Reliable lubricant logistics direct to workshops, fleet owners, and garages across Maharashtra.</p>
@@ -980,8 +1087,6 @@
     const clock = new THREE.Clock();
 
     let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
-    let cursorX = window.innerWidth / 2, cursorY = window.innerHeight / 2;
-    let outerCursorX = window.innerWidth / 2, outerCursorY = window.innerHeight / 2;
 
     const sizes = { width: window.innerWidth, height: window.innerHeight };
 
@@ -1621,27 +1726,42 @@
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
-      // Smooth custom cursor
-      outerCursorX += (cursorX - outerCursorX) * 0.2;
-      outerCursorY += (cursorY - outerCursorY) * 0.2;
-      const cursorOuter = document.querySelector('.cursor-outer');
-      if (cursorOuter) {
-        cursorOuter.style.left = `${outerCursorX}px`;
-        cursorOuter.style.top = `${outerCursorY}px`;
-      }
-
       // 3D Model stationing on Right Side + smooth continuous rotation driven by scroll & mouse
       const isDesktop = sizes.width > 900;
-      const targetCanX = isDesktop ? 1.05 : 0.0;
+
+      // Smooth removal of 3D Can during Slide 4 ("Keeping Engines Running")
+      // As scroll approaches Slide 4 (0.63 -> 0.70), visibility drops to 0.
+      // As scroll leaves Slide 4 (0.83 -> 0.89), visibility smoothly returns.
+      let canVisibilityFactor = 1.0;
+      if (currentScroll >= 0.63 && currentScroll <= 0.89) {
+        if (currentScroll < 0.70) {
+          canVisibilityFactor = 1.0 - (currentScroll - 0.63) / (0.70 - 0.63);
+        } else if (currentScroll > 0.83) {
+          canVisibilityFactor = (currentScroll - 0.83) / (0.89 - 0.83);
+        } else {
+          canVisibilityFactor = 0.0;
+        }
+      } else if (currentScroll > 0.89) {
+        canVisibilityFactor = 1.0;
+      }
+      canVisibilityFactor = Math.max(0.0, Math.min(1.0, canVisibilityFactor));
+
       if (modelPivot) {
+        const targetScaleScaled = targetScaleVec.clone().multiplyScalar(canVisibilityFactor);
+        modelPivot.scale.lerp(targetScaleScaled, 0.08);
+
+        const targetCanX = isDesktop ? (1.05 + (1.0 - canVisibilityFactor) * 1.2) : 0.0;
         modelPivot.position.x += (targetCanX - modelPivot.position.x) * 0.08;
-        modelPivot.position.y = -0.06;
+
+        const targetCanY = -0.06 - (1.0 - canVisibilityFactor) * 1.6;
+        modelPivot.position.y += (targetCanY - modelPivot.position.y) * 0.08;
 
         // Smooth 3D rotation revealing all sides of the can during scroll
         const targetRotY = currentScroll * Math.PI * 3.6 + mouseX * 0.28;
         modelPivot.rotation.y += (targetRotY - modelPivot.rotation.y) * 0.08;
         modelPivot.rotation.x = mouseY * 0.16;
-        modelPivot.scale.lerp(targetScaleVec, 0.08);
+
+        modelPivot.visible = modelPivot.scale.length() > 0.005;
       }
 
       // Viscosity Sparks simulation
@@ -1690,27 +1810,10 @@
       renderer.render(scene, camera);
     }
 
-    // Pointer events
+    // Pointer events for 3D model interaction
     window.addEventListener('mousemove', (event) => {
-      cursorX = event.clientX;
-      cursorY = event.clientY;
-      const cursorInner = document.querySelector('.cursor-inner');
-      if (cursorInner) {
-        cursorInner.style.left = `${cursorX}px`;
-        cursorInner.style.top = `${cursorY}px`;
-      }
       targetMouseX = (event.clientX / window.innerWidth) * 2 - 1;
       targetMouseY = (event.clientY / window.innerHeight) * 2 - 1;
-    });
-
-    // Hover effect on buttons and interactive items
-    document.addEventListener('mouseover', (e) => {
-      const cursorOuter = document.querySelector('.cursor-outer');
-      if (e.target.closest('a, button, .product-tab, input, select')) {
-        if (cursorOuter) cursorOuter.classList.add('hovered');
-      } else {
-        if (cursorOuter) cursorOuter.classList.remove('hovered');
-      }
     });
 
     window.addEventListener('resize', onWindowResize);
